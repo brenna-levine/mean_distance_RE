@@ -1,0 +1,7 @@
+Genome_File	Total_Sequence_Length
+c_lectularius_genome.fna	510848842
+c_viridis_genome.fna	1340198908
+p_flavoviridis_genome.fna	1413200976
+p_molurus_genome.fna	1435052152
+t_scripta_genome.fna	2126199303
+v_komodoensis_genome.fna	1507945839
