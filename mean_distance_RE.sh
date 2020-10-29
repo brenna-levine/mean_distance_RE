@@ -7,7 +7,7 @@
 helpFunction()
 {
 	echo ""
-	echo "Usage: $0 -i <input_file> -r <P1_cutsite_seq> -f <P2_cutsite_seq>\n"
+	echo -e "Usage: $0 -i <input_file> -r <P1_cutsite_seq> -f <P2_cutsite_seq>\n"
 	echo -e "\t-i Input file containing genome file names and sequence lengths"
 	echo -e "\t-r P1 cutsite recognition sequence (forward)"
 	echo -e "\t-f P2 cutsite recognition sequence (forward)\n"
@@ -16,9 +16,9 @@ helpFunction()
 }
 
 #use getopts to define command line arguments
-while getopts "i:r:f" opt
+while getopts "i:r:f:" opt;
 do
-	case "$opt" in
+	case ${opt} in
 		i ) input_file="$OPTARG" ;;
 		r ) P1_cutsite="$OPTARG" ;;
 	 	f ) P2_cutsite="$OPTARG" ;;
@@ -27,12 +27,22 @@ do
 done
 
 #print helpFunction if any parameters are empty
-if [ -z "$input_file" ] || [ -z "$P1_cutsite" ] || [ -z "$P2_cutsite" }; then
+if [ -z "$input_file" ] || [ -z "$P1_cutsite" ] || [ -z "$P2_cutsite" ]
+then
 	echo -e "\nEeeeek! Some or all required parameters are empty.\n";
 	helpFunction
 fi
 
 #################################### Begin analysis #####################################
+
+#echo status to STDOUT
+echo -e "\n\n3...2..1...blast off!\n"
+
+#echo parameter values
+echo -e "\nThe following command line arguments have been passed as variables to the script:\n"
+echo -e "\tinput file: '$input_file'"
+echo -e "\tP1 cutsite: '$P1_cutsite'"
+echo -e "\tP2 cutsite: '$P2_cutsite'"
 
 ################# Use tr to generate reverse cut-site recognition sequences
 
@@ -40,7 +50,7 @@ P1_cutsite_rev=$(echo $P1_cutsite | tr GCTA CGAT)
 P2_cutsite_rev=$(echo $P2_cutsite | tr GCTA CGAT)
 
 ################# Echo forward and reverse cut site sequences
-echo -e "\nP1 - Forward and reverse cut-site recognition sequences: $P1_cutsite $P1_cutsite_rev\n"
+echo -e "\n\nP1 - Forward and reverse cut-site recognition sequences: $P1_cutsite $P1_cutsite_rev"
 echo -e "P2 - Forward and reverse cut-site recognition sequences: $P2_cutsite $P2_cutsite_rev\n"
 
 ################# Assign genome file names to array elements
@@ -71,9 +81,9 @@ COUNTER=0
 while read line #while reading the genome_temp file
 do
 	if [ $line = ${genome_list[$COUNTER]} ]; then   #if the value of line in genome_temp equals value of array element, then
-		echo "Yes."				#echo "Yes" to stdout
+		echo -e "\tYes."				#echo "Yes" to stdout
 	else						#else
-		echo "WARNING - Array element and line do not match!"	#echo warning to stdout
+		echo -e "\tWARNING - Array element and line do not match!"	#echo warning to stdout
 	fi						#close the if/else loop
 	let COUNTER=COUNTER+1				#increase COUNTER variable by 1
 done < genome_temp	#feed genome_temp file to while loop
@@ -107,9 +117,9 @@ COUNTER=0
 while read line #while reading line of temp file
 do
         if [ $line = ${genome_length[$COUNTER]} ]; then 	#if the value of line in genome_temp equals value of array element, then
-                echo "Yes."     				#echo "Yes" to STDOUT
+                echo -e "\tYes."     				#echo "Yes" to STDOUT
         else                    				#else
-                echo "WARNING - Array element and line do not match!"      #echo warning to STDOUT
+                echo -e "\tWARNING - Array element and line do not match!"      #echo warning to STDOUT
         fi                      				#close the if/else loop
         let COUNTER=COUNTER+1   				#increase the counter by 1
 done < genome_temp      #feed genome_temp file to while loop
@@ -127,9 +137,9 @@ NUM_LENGTH=${#genome_length[@]}
 
 #confirm that genome_list and genome_length arrays have the same number of elements
 if [ $NUM_LIST = $NUM_LENGTH ]; then 	#if the two arrays have the same number of elements, then
-	echo -e "\nOK - The genome_list and genome_length arrays have the same number of elements: $NUM_LIST"
+	echo -e "\n\nOK - The genome_list and genome_length arrays have the same number of elements: $NUM_LIST"
 else	
-	echo -e "\nWARNING: The genome_list and genome_length arrays do not have the same number of elements!" 
+	echo -e "\n\nWARNING: The genome_list and genome_length arrays do not have the same number of elements!" 
 fi
 
 #create headers in two new files
@@ -137,7 +147,7 @@ echo "P1_Distance" > P1_freq.txt	#echo header to temporary file
 echo "P2_Distance" > P2_freq.txt	#echo header to temporary file
 
 #echo status to STDOUT
-echo -e "\nCalculating cut-site frequencies for genome files in list............\n"
+echo -e "\n\nCalculating cut-site frequencies for genome files in list............\n"
 
 while [ $COUNTER -lt $NUM_LIST ]	#while the value of COUNTER is less than the value of NUM_LIST
 do
@@ -179,5 +189,5 @@ paste $input_file P1_freq.txt P2_freq.txt > mean_distance_out.txt
 rm P1_freq.txt P2_freq.txt
 
 #echo final phrase to STDOUT
-echo -e "For each genome file, mean distances between cut sites are reported in mean_distance_out.txt.\n"
-echo -e "See you next time!\n\n\n"
+echo -e "\n\nFor each genome file, mean distances between cut sites are reported in mean_distance_out.txt.\n"
+echo -e "\nSee you next time!\n\n\n"

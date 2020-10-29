@@ -5,3 +5,4 @@ p_flavoviridis_genome.fna	1413200976
 p_molurus_genome.fna	1435052152
 t_scripta_genome.fna	2126199303
 v_komodoensis_genome.fna	1507945839
+c_picta.fna	2481351664	
