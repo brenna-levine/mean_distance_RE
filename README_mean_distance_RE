@@ -1,5 +1,5 @@
 ##################################################### README #########################################################
-					 Brenna Levine - levine.brenna.a@gmail.com
+				     Brenna Levine - levine.brenna.a@gmail.com
 
 An important step in ddRAD library preparation (Peterson et al. 2012) is correct dilution of adapters that is specific to the
 frequency of cut sites (associated with the P1 and P2 adapters) in the genome of the organism. Due to the cost of adapters,
@@ -7,10 +7,10 @@ many labs buy one set and dilute them to the appropriate concentrations for a va
 calculation of the mean distance between cut sites for each organism.
 
 This script takes as an argument a file consisting of genome file names (and the lengths in bp of the genomes)
-that correspond with genome files present in the working directory. It also take the cut-site associated with
+that correspond with genome files present in the working directory (see example below). It also take the cut-site recognition sequences associated with
 the P1 and P2 adapters (often the rare and frequent cutters, respectively). The script calculates and writes to 
 a new file the mean distance (in base pairs) between restriction enzyme cut sites, and these results can then be used
-for diluting adapters to the appropriate concentrations, following the Peterson et al. (2012) ddRAD protocol.
+for diluting adapters to the appropriate concentrations following the Peterson et al. (2012) ddRAD protocol.
 
 Important notes:
 -This script requires that your list of genome files is structured as in the example (genome_list.txt).
@@ -18,3 +18,15 @@ Important notes:
 
 
 Usage: ./mean_distance_RE.sh -i <input_file> -r <P1 cutsite sequence> -f <P2 cut site sequence>
+
+
+Example Input File:
+
+Genome_File                Total_Sequence_Length
+c_lectularius_genome.fna   510848842
+c_viridis_genome.fna       1340198908
+p_flavoviridis_genome.fna  1413200976
+p_molurus_genome.fna       1435052152
+t_scripta_genome.fna       2126199303
+v_komodoensis_genome.fna   1507945839
+c_picta.fna                2481351664
