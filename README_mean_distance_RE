@@ -4,20 +4,22 @@
 An important step in ddRAD library preparation (Peterson et al. 2012) is correct dilution of adapters that is specific to the
 frequency of cut sites (associated with the P1 and P2 adapters) in the genome of the organism. Due to the cost of adapters,
 many labs buy one set and dilute them to the appropriate concentrations for a variety of study organisms. This requires
-calculation of the mean distance between cut sites for each organism.
+calculation of the mean distance between cut sites for each organism. These distances can then serve as input for the ddRAD ligation molarity calculator.
 
 This script takes as an argument a file consisting of genome file names (and the lengths in bp of the genomes)
-that correspond with genome files present in the working directory (see example below). It also take the cut-site recognition sequences associated with
-the P1 and P2 adapters (often the rare and frequent cutters, respectively). The script calculates and writes to 
+that correspond with genome files present in the working directory (see example below). It also take the cut site recognition sequences associated with
+the P1 and P2 adapters [often the rare (-r) and frequent (-f) cutters, respectively]. The script calculates and writes to 
 a new file the mean distance (in base pairs) between restriction enzyme cut sites, and these results can then be used
-for diluting adapters to the appropriate concentrations following the Peterson et al. (2012) ddRAD protocol.
+for diluting adapters to the appropriate concentrations following the Peterson et al. (2012) ddRAD protocol. Mean distance between cut sites for
+each enzyme is calculated by summing the number of occurences of forward and reverse cut site sequences in a reference genome (via grep -oi for each string),
+and dividing the size of the genome (bp) by this total for each enzyme.
 
 Important notes:
 -This script requires that your list of genome files is structured as in the example (genome_list.txt).
 -This script assumes that your genome fasta files are in the same working directory as the script.
 
 
-Usage: ./mean_distance_RE.sh -i <input_file> -r <P1 cutsite sequence> -f <P2 cut site sequence>
+Usage: ./mean_distance_RE.sh -i <input_file> -r <P1 cut site sequence> -f <P2 cut site sequence>
 
 
 Example Input File:
@@ -27,6 +29,13 @@ c_lectularius_genome.fna   510848842
 c_viridis_genome.fna       1340198908
 p_flavoviridis_genome.fna  1413200976
 p_molurus_genome.fna       1435052152
-t_scripta_genome.fna       2126199303
-v_komodoensis_genome.fna   1507945839
-c_picta.fna                2481351664
+
+Example forward P1 cut site sequence:
+CTGCAG
+
+Example forward P2 cut site sequence:
+CCGG
+
+License
+This software is provided for free: you can redistribute it and/or modify it under the terms of the GNU Public License as published by the Free Software Foundation. You should have received a copy of the GNU Public License with the software. If not, see: www.gnu.org/licenses
+The author claims no liability nor resposibility for the functionality of this software.
